@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Olivia Carter",
+    "username": "olivia.c89",
+    "email": "olivia.carter89@example.com",
+    "age": 34,
+    "location": "Austin, TX"
+  },
+  {
+    "id": 2,
+    "name": "Liam Foster",
+    "username": "liam_f",
+    "email": "liam.foster@example.com",
+    "age": 29,
+    "location": "Seattle, WA"
+  },
+  {
+    "id": 3,
+    "name": "Ava Reynolds",
+    "username": "ava.rey",
+    "email": "ava.reynolds@example.com",
+    "age": 26,
+    "location": "Chicago, IL"
+  },
+  {
+    "id": 4,
+    "name": "Ethan Chen",
+    "username": "ethanchen92",
+    "email": "ethan.chen92@example.com",
+    "age": 32,
+    "location": "San Francisco, CA"
+  },
+  {
+    "id": 5,
+    "name": "Sophia Patel",
+    "username": "sophia_p",
+    "email": "sophia.patel@example.com",
+    "age": 41,
+    "location": "New York, NY"
+  }
+]
