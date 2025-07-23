@@ -1,7 +1,12 @@
 const express = require("express");
 const createError = require("http-errors");
 const logger = require("morgan");
+const mongoose = require("mongoose");
 const User = require("./models/user.model");
+
+mongoose.connect("mongodb://127.0.0.1:27017/users-api").then(() => {
+  console.log("Connected to users-api mongo database");
+});
 
 const app = express();
 
@@ -44,7 +49,11 @@ app.post("/api/v1/users", (req, res, next) => {
       res.status(201).json(user);
     })
     .catch((err) => {
-      res.status(400).json({ message: "review body" });
+      if (err instanceof mongoose.Error.ValidationError) {
+        return res.status(400).json({ errors: err.errors });
+      }
+
+      next(err);
     });
 });
 
