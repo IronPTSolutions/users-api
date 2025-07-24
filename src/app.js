@@ -1,87 +1,18 @@
 const express = require("express");
 const createError = require("http-errors");
 const logger = require("morgan");
-const mongoose = require("mongoose");
-const User = require("./models/user.model");
 
-mongoose.connect("mongodb://127.0.0.1:27017/users-api").then(() => {
-  console.log("Connected to users-api mongo database");
-});
+require("./config/db.config");
 
 const app = express();
 
+// Middlewares
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.static(`${__dirname}/public`));
 
-app.get("/", (req, res, next) => {
-  res.sendFile(`${__dirname}/views/index.html`);
-});
-
-// USERS CRUD
-
-// READ. LIST
-app.get("/api/v1/users", (req, res, next) => {
-  User.find()
-    .then((users) => {
-      res.json(users);
-    })
-    .catch((err) => {
-      next(err);
-    });
-});
-
-// READ. DETAIL
-app.get("/api/v1/users/:id", (req, res, next) => {
-  User.findById(req.params.id).then((user) => {
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404).json({ message: "user not found" });
-    }
-  });
-});
-
-// CREATE
-app.post("/api/v1/users", (req, res, next) => {
-  User.create(req.body)
-    .then((user) => {
-      res.status(201).json(user);
-    })
-    .catch((err) => {
-      if (err instanceof mongoose.Error.ValidationError) {
-        return res.status(400).json({ errors: err.errors });
-      }
-
-      next(err);
-    });
-});
-
-// UPDATE
-app.patch("/api/v1/users/:id", (req, res, next) => {
-  User.findByIdAndUpdate(req.params.id, req.body)
-    .then((user) => {
-      if (user) {
-        res.json(user);
-      } else {
-        res.status(404).json({ message: "user not found" });
-      }
-    })
-    .catch((err) => {
-      res.status(400).json({ message: "review body" });
-    });
-});
-
-// DELETE
-app.delete("/api/v1/users/:id", (req, res, next) => {
-  User.findByIdAndDelete(req.params.id)
-    .then((user) => {
-      res.status(204).send();
-    })
-    .catch((err) => {
-      res.status(400).json({ message: "invalid request" });
-    });
-});
+// Load routes
+const router = require("./config/routes.config");
+app.use("/api/v1", router);
 
 app.use((req, res, next) => {
   next(createError(400, "Route not found"));
