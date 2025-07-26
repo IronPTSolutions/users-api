@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+require("./address.model");
+
 const schema = new mongoose.Schema(
   {
     name: {
@@ -60,6 +62,7 @@ const schema = new mongoose.Schema(
   {
     timestamps: true,
     toJSON: {
+      virtuals: true,
       transform: (doc, ret) => {
         ret.id = ret._id;
         delete ret.password; // Do not expose password
@@ -70,6 +73,12 @@ const schema = new mongoose.Schema(
     },
   }
 );
+
+schema.virtual("addresses", {
+  ref: "Address",
+  localField: "_id",
+  foreignField: "user",
+});
 
 const User = mongoose.model("User", schema);
 
