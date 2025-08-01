@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const bcrypt = require('bcryptjs');
+const SALT_WORK_FACTOR = 10;
+
 
 require("./address.model");
 
@@ -79,6 +82,26 @@ schema.virtual("addresses", {
   localField: "_id",
   foreignField: "user",
 });
+
+
+schema.pre('save', function (next) {
+  const user = this;
+
+  if (user.isModified("password")) {
+    bcrypt.hash(user.password, SALT_WORK_FACTOR)
+      .then((hash) => {
+        user.password = hash;
+        next();
+      })
+      .catch((error) => next(error));
+  } else {
+    next();
+  }
+});
+
+schema.methods.checkPassword = function (passwordToCheck) {
+  return bcrypt.compare(passwordToCheck, this.password);
+}
 
 const User = mongoose.model("User", schema);
 
