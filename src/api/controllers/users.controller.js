@@ -22,6 +22,8 @@ module.exports.detail = async (req, res, next) => {
 };
 
 module.exports.create = async (req, res, next) => {
+  delete req.body.role;
+
   const { username } = req.body;
   let user = await User.findOne({ username });
   if (user) next(UsernameAlreadyExists);
@@ -33,6 +35,8 @@ module.exports.create = async (req, res, next) => {
 
 module.exports.update = async (req, res, next) => {
   delete req.body.username;
+  delete req.body.role;
+
   const user = await User.findByIdAndUpdate(
     req.params.id, 
     req.body, 

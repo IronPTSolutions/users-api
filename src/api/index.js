@@ -4,7 +4,7 @@ const router = express.Router();
 const { 
   findUserById, 
   session: { loadSessionUser, session },
-  secure: { isAuthenticated }
+  secure: { isAuthenticated, isAdmin }
 } = require('./middlewares');
 
 const users = require("./controllers/users.controller");
@@ -20,7 +20,7 @@ router.delete("/sessions/me", sessions.delete);
 
 // USERS CRUD
 router.post("/users", users.create);
-router.get("/users", isAuthenticated, users.list);
+router.get("/users", isAuthenticated, isAdmin, users.list);
 router.get("/users/:id", isAuthenticated, users.detail);
 router.patch("/users/:id", isAuthenticated, users.update);
 router.delete("/users/:id", isAuthenticated, users.delete);

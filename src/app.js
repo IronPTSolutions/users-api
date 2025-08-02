@@ -1,3 +1,5 @@
+const config = require('./lib/config');
+
 const express = require("express");
 const mongoose = require("mongoose");
 const createError = require("http-errors");
@@ -37,4 +39,4 @@ app.use((error, req, res, next) => {
   res.status(error.status).json(errorResponse);
 });
 
-app.listen(3000, () => console.info(`Application running at port 3000`));
+app.listen(config.get('port'), () => console.info(`Application running at port ${config.get('port')}`));

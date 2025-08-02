@@ -1,20 +1,20 @@
+const config = require('../../lib/config');
 const expressSession = require('express-session');
 const MongoStore = require('connect-mongo');
-const mongoose = require('mongoose');
 const User = require('../../lib/models/user.model');
 
 const session = expressSession({
-  secret: 'super-secret',
+  secret: config.get('session.secret'),
   saveUninitialized: false,
   resave: false,
   cookie: {
-    secure: false,
-    httpOnly: true,
-    maxAge: 60 * 60 * 24 * 7 * 1000
+    secure: config.get('session.cookie.secure'),
+    httpOnly: config.get('session.cookie.httpOnly'),
+    maxAge: 60 * 60 * 24 * config.get('session.cookie.maxDays') * 1000
   },
   store: MongoStore.create({
-    mongoUrl: 'mongodb://127.0.0.1:27017/users-api',
-    ttl: 60 * 60 * 24 * 7
+    mongoUrl: config.get('db'),
+    ttl: 60 * 60 * 24 * config.get('session.cookie.maxDays')
   })
 });
 
