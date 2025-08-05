@@ -1,84 +1,88 @@
-require('dotenv').config();
+const dotenv = require("dotenv");
 
-const validator = require('validator');
-const convict = require('convict');
-const externalFormats = require('convict-format-with-validator');
-const { format } = require('morgan');
+const envFile = process.env.NODE_ENV === "test" ? ".env.test" : ".env";
+console.log(`Using environment file: ${envFile}`);
+dotenv.config({ path: envFile });
+
+const validator = require("validator");
+const convict = require("convict");
+const externalFormats = require("convict-format-with-validator");
 
 convict.addFormats(externalFormats);
 
 convict.addFormat({
-  name: 'mongodb-uri',
+  name: "mongodb-uri",
   validate: function (uri) {
-    if (!validator.isURL(uri, { protocols: 'mongodb' })) {
-      throw new Error('Invalid mongodb uri')
+    if (!validator.isURL(uri, { protocols: "mongodb" })) {
+      throw new Error("Invalid mongodb uri");
     }
-  }
+  },
 });
 
 convict.addFormat({
-  name: 'string-array',
+  name: "string-array",
   validate: function (elements) {
     if (!Array.isArray(elements)) {
-      throw new Error('Must be an array of strings or comma separated.')
+      throw new Error("Must be an array of strings or comma separated.");
     }
   },
   coerce: function (value) {
     if (Array.isArray(value)) return value;
-    else if (typeof value === 'string') return value.split(',').map(element => element.trim());
+    else if (typeof value === "string")
+      return value.split(",").map((element) => element.trim());
     else return value;
-  }
-})
+  },
+});
 
 const config = convict({
   port: {
-    doc: 'The port to bind.',
-    format: 'port',
+    doc: "The port to bind.",
+    format: "port",
     default: 3000,
-    env: 'PORT'
+    env: "PORT",
   },
   db: {
-    doc: 'MongoDB URI.',
-    format: 'mongodb-uri',
-    default: 'mongodb://127.0.0.1:27017/users-api',
-    env: 'MONGODB_URI'
+    doc: "MongoDB URI.",
+    format: "mongodb-uri",
+    default: "mongodb://127.0.0.1:27017/users-api",
+    env: "MONGODB_URI",
   },
   session: {
     secret: {
-      doc: 'Session secret for cookie sign.',
+      doc: "Session secret for cookie sign.",
       format: String,
-      default: 'super-secret',
-      env: 'SESSION_SECRET',
-      sensitive: true
+      default: "super-secret",
+      env: "SESSION_SECRET",
+      sensitive: true,
     },
     cookie: {
       secure: {
-        doc: 'Session cookie secure flag',
+        doc: "Session cookie secure flag",
         format: Boolean,
         default: false,
-        env: 'SESSION_COOKIE_SECURE'
+        env: "SESSION_COOKIE_SECURE",
       },
       httpOnly: {
-        doc: 'Session cookie httpOnly flag',
+        doc: "Session cookie httpOnly flag",
         format: Boolean,
-        default: true
+        default: true,
       },
       maxDays: {
-        doc: 'Session cookie max age in days',
+        doc: "Session cookie max age in days",
         format: Number,
         default: 7,
-        env: 'SESSION_COOKIE_MAX_DAYS'
-      }
-    }
+        env: "SESSION_COOKIE_MAX_DAYS",
+      },
+    },
   },
   admins: {
-    doc: 'System administrators user emails',
-    format: 'string-array',
+    doc: "System administrators user emails",
+    format: "string-array",
     default: [],
-    env: 'ADMIN_EMAILS'
-  }
+    env: "ADMIN_EMAILS",
+  },
 });
 
-config.validate({ allowed: 'strict' });
+config.validate({ allowed: "strict" });
 
 module.exports = config;
