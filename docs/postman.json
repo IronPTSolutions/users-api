@@ -1,0 +1,413 @@
+{
+	"info": {
+		"_postman_id": "73b42311-6d93-4154-9fc6-9efd87b3f18c",
+		"name": "Users API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1194541"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/users",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/:user-id",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								":user-id"
+							],
+							"variable": [
+								{
+									"key": "user-id",
+									"value": "68891c45f1f70cb0a5741583"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/:user-id",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								":user-id"
+							],
+							"variable": [
+								{
+									"key": "user-id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pepe\",\n    \"username\": \"pepe\",\n    \"email\": \"pepe@example.org\",\n    \"password\": \"12345678\",\n    \"bio\": \"Lorem lorem loreeeeeem\",\n    \"birthDate\": \"1990-05-12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Pepe\",\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/:user-id",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								":user-id"
+							],
+							"variable": [
+								{
+									"key": "user-id",
+									"value": "68890a8c93c3c3d9670cb58b"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Addresses",
+			"item": [
+				{
+					"name": "Address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"C/ Falsa\",\n    \"num\": \"12345\",\n    \"zipCode\": \"12345\",\n    \"town\": \"Madrid\",\n    \"region\": \"Madrid\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/:user-id/addresses",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								":user-id",
+								"addresses"
+							],
+							"variable": [
+								{
+									"key": "user-id",
+									"value": "me"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Address",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"C/ Falsa\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/:user-id/addresses/:address-id",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								":user-id",
+								"addresses",
+								":address-id"
+							],
+							"variable": [
+								{
+									"key": "user-id",
+									"value": "68891c45f1f70cb0a5741583"
+								},
+								{
+									"key": "address-id",
+									"value": "68891c4cf1f70cb0a5741586"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Address",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"C/ Falsa \",\n    \"num\": \"123\",\n    \"zipCode\": \"12345\",\n    \"town\": \"Madrid\",\n    \"region\": \"Madrid\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/:user-id/addresses/:address-id",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								":user-id",
+								"addresses",
+								":address-id"
+							],
+							"variable": [
+								{
+									"key": "user-id",
+									"value": "me"
+								},
+								{
+									"key": "address-id",
+									"value": "68891c4cf1f70cb0a5741586"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"C/ Falsa \",\n    \"num\": \"123\",\n    \"zipCode\": \"12345\",\n    \"town\": \"Madrid\",\n    \"region\": \"Madrid\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/:user-id/addresses/:address-id",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								":user-id",
+								"addresses",
+								":address-id"
+							],
+							"variable": [
+								{
+									"key": "user-id",
+									"value": "68891c45f1f70cb0a5741583"
+								},
+								{
+									"key": "address-id",
+									"value": "68891c4cf1f70cb0a5741586"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Addresses",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"C/ Falsa \",\n    \"num\": \"123\",\n    \"zipCode\": \"12345\",\n    \"town\": \"Madrid\",\n    \"region\": \"Madrid\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/users/:user-id/addresses",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"users",
+								":user-id",
+								"addresses"
+							],
+							"variable": [
+								{
+									"key": "user-id",
+									"value": "me"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"item": [
+				{
+					"name": "Session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"carlos\",\n    \"password\": \"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_API_URL}}/sessions",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Session",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_API_URL}}/sessions/me",
+							"host": [
+								"{{BASE_API_URL}}"
+							],
+							"path": [
+								"sessions",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_API_URL",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}
