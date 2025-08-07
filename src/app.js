@@ -53,6 +53,10 @@ app.use(async (error, req, res, next) => {
   res.status(error.status).json(errorResponse);
 });
 
-app.listen(config.get("port"), () =>
-  console.info(`Application running at port ${config.get("port")}`)
-);
+if (process.env.NODE_ENV !== "test") {
+  app.listen(config.get("port"), () =>
+    console.info(`Application running at port ${config.get("port")}`)
+  );
+}
+
+module.exports = app;

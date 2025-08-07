@@ -1,17 +1,12 @@
 const { faker } = require("@faker-js/faker");
-const mongoose = require("mongoose");
 const User = require("../lib/models/user.model");
 const Address = require("../lib/models/address.model");
-const db = require("../lib/db");
+const { clearDB, closeDBConnection } = require("../lib/db");
 
 console.log("seed");
 
 async function run() {
-  // wait for db setup
-  await db;
-
-  await mongoose.connection.db.dropDatabase();
-  console.log("DB clear");
+  await clearDB();
 
   await User.create({
     name: "Admin",
@@ -50,7 +45,8 @@ async function run() {
   }
 
   console.log("Exit DB connection");
-  await mongoose.connection.close();
+
+  await closeDBConnection();
 }
 
 run();

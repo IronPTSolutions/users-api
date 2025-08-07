@@ -13,7 +13,12 @@ module.exports.list = async (req, res, next) => {
 };
 
 module.exports.detail = async (req, res, next) => {
+  if (req.params.id === "me") {
+    return res.json(req.sessionUser);
+  }
+
   const user = await User.findById(req.params.id).populate("addresses");
+
   if (user) res.json(user);
   else next(UserNotFound);
 };
