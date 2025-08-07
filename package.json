@@ -4,6 +4,7 @@
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
+    "seeds": "node src/bin/seeds.js",
     "dev": "node --watch src/app.js"
   },
   "keywords": [],
@@ -12,6 +13,7 @@
   "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^1.41.3",
     "connect-mongo": "^5.1.0",
     "convict": "^6.2.4",
     "convict-format-with-validator": "^6.2.0",
@@ -20,6 +22,11 @@
     "express-session": "^1.18.2",
     "http-errors": "^2.0.0",
     "mongoose": "^8.16.4",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^9.9.0"
   }
 }

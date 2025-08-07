@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
-const config = require('../config');
+const config = require("../config");
 require("./address.model");
 
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const SALT_WORK_FACTOR = 10;
-const EMAIL_PATTERN = /^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(?:\[(?:(?:IPv6:[a-fA-F0-9:.]+)|(?:\d{1,3}\.){3}\d{1,3})\]))$/;
+const EMAIL_PATTERN =
+  /^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(?:\[(?:(?:IPv6:[a-fA-F0-9:.]+)|(?:\d{1,3}\.){3}\d{1,3})\]))$/;
 
 const schema = new mongoose.Schema(
   {
@@ -33,10 +34,7 @@ const schema = new mongoose.Schema(
       required: [true, "El email es requerido"],
       lowercase: true,
       trim: true,
-      match: [
-        EMAIL_PATTERN,
-        "El email de usuario no es válido",
-      ],
+      match: [EMAIL_PATTERN, "El email de usuario no es válido"],
     },
     password: {
       type: String,
@@ -72,11 +70,14 @@ const schema = new mongoose.Schema(
           "La fecha de nacimiento debe corresponder a una persona entre 13 y 100 años",
       },
     },
+    avatar: {
+      type: String,
+    },
     role: {
       type: String,
-      enum: ['admin', 'guest'],
-      default: 'guest'
-    }
+      enum: ["admin", "guest"],
+      default: "guest",
+    },
   },
   {
     timestamps: true,
@@ -99,16 +100,16 @@ schema.virtual("addresses", {
   foreignField: "user",
 });
 
-
-schema.pre('save', function (next) {
+schema.pre("save", function (next) {
   const user = this;
 
-  if (user.role === 'guest' && config.get('admins').includes(user.email)) {
-    user.role = 'admin';
+  if (user.role === "guest" && config.get("admins").includes(user.email)) {
+    user.role = "admin";
   }
 
   if (user.isModified("password")) {
-    bcrypt.hash(user.password, SALT_WORK_FACTOR)
+    bcrypt
+      .hash(user.password, SALT_WORK_FACTOR)
       .then((hash) => {
         user.password = hash;
         next();
@@ -121,7 +122,7 @@ schema.pre('save', function (next) {
 
 schema.methods.checkPassword = function (passwordToCheck) {
   return bcrypt.compare(passwordToCheck, this.password);
-}
+};
 
 const User = mongoose.model("User", schema);
 

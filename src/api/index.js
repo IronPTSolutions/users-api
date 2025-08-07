@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const { storage } = require("../lib/storage");
 
-const { 
-  findUserById, 
+const {
+  findUserById,
   session: { loadSessionUser, session },
-  secure: { isAuthenticated, isAdmin }
-} = require('./middlewares');
+  secure: { isAuthenticated, isAdmin },
+} = require("./middlewares");
 
 const users = require("./controllers/users.controller");
 const addresses = require("./controllers/addresses.controller");
@@ -19,10 +20,15 @@ router.post("/sessions", sessions.create);
 router.delete("/sessions/me", sessions.delete);
 
 // USERS CRUD
-router.post("/users", users.create);
+router.post("/users", storage.single("avatar"), users.create);
 router.get("/users", isAuthenticated, isAdmin, users.list);
 router.get("/users/:id", isAuthenticated, users.detail);
-router.patch("/users/:id", isAuthenticated, users.update);
+router.patch(
+  "/users/:id",
+  isAuthenticated,
+  storage.single("avatar"),
+  users.update
+);
 router.delete("/users/:id", isAuthenticated, users.delete);
 
 // USER ADDRESSES CRUD
