@@ -47,6 +47,12 @@ const config = convict({
     default: "mongodb://127.0.0.1:27017/users-api",
     env: "MONGODB_URI",
   },
+  corsOrigins: {
+    doc: "Activated CORS Origins",
+    format: "string-array",
+    default: [],
+    env: "CORS_ORIGINS",
+  },
   session: {
     secret: {
       doc: "Session secret for cookie sign.",

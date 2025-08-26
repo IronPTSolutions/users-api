@@ -6,12 +6,14 @@ const {
   findUserById,
   session: { loadSessionUser, session },
   secure: { isAuthenticated, isAdmin },
+  cors
 } = require("./middlewares");
 
 const users = require("./controllers/users.controller");
 const addresses = require("./controllers/addresses.controller");
 const sessions = require("./controllers/sessions.controller");
 
+router.use(cors);
 router.use(session);
 router.use(loadSessionUser);
 
