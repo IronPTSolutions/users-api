@@ -13,3 +13,7 @@ http.interceptors.response.use(
 export const login = (user) => {
   return http.post('/sessions', user)
 }
+
+export const logout = () => {
+  return http.delete('/sessions/me')
+}
