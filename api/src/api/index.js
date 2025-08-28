@@ -23,7 +23,7 @@ router.delete("/sessions/me", sessions.delete);
 
 // USERS CRUD
 router.post("/users", storage.single("avatar"), users.create);
-router.get("/users", isAuthenticated, isAdmin, users.list);
+router.get("/users", isAuthenticated, users.list);
 router.get("/users/:id", isAuthenticated, users.detail);
 router.patch(
   "/users/:id",
@@ -31,7 +31,7 @@ router.patch(
   storage.single("avatar"),
   users.update
 );
-router.delete("/users/:id", isAuthenticated, users.delete);
+router.delete("/users/:id", isAuthenticated, isAdmin, users.delete);
 
 // USER ADDRESSES CRUD
 router.post("/users/me/addresses", isAuthenticated, addresses.create);

@@ -1,13 +1,15 @@
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import { useAuth } from "../../../contexts/auth";
 import * as UsersApi from "../../../services/users-api";
 
 function Navbar() {
-  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const { user, isAdmin, logout } = useAuth();
 
   const handleLogout = async () => {
     await UsersApi.logout();
     logout();
+    navigate('/login');
   };
 
   return (
@@ -19,7 +21,7 @@ function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="main-navbar">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item"><NavLink className="nav-link" to="/users">Users</NavLink></li>
+            {user && (<li className="nav-item"><NavLink className="nav-link" to="/users">Users</NavLink></li>)}
           </ul>
           <ul className="navbar-nav">
             {!user && (

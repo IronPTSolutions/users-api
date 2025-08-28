@@ -3,7 +3,7 @@ import * as UsersApi from "../../../services/users-api";
 import { useAuth } from "../../../contexts/auth";
 import { useNavigate } from "react-router";
 
-function LoginForm({ className = "" }) {
+function LoginForm({ className = "", to = "/" }) {
   const { login } = useAuth();
   const navigate = useNavigate();
   const { register, handleSubmit, setError, formState: { errors, isValid } } = useForm({ mode: "all" });
@@ -12,7 +12,7 @@ function LoginForm({ className = "" }) {
     try {
       user = await UsersApi.login(user);
       login(user);
-      navigate('/');
+      navigate(to);
     } catch (error) {
       const errors = error.response?.data.errors;
       if (errors) {

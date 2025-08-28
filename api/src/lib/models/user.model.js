@@ -72,6 +72,9 @@ const schema = new mongoose.Schema(
     },
     avatar: {
       type: String,
+      default: function() {
+        return `https://i.pravatar.cc/150?u=${this.username}`;
+      }
     },
     role: {
       type: String,

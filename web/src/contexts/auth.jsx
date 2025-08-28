@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 
-const LS_USER = 'current-user';
+export const LS_USER = 'current-user';
 
 const AuthContext = createContext();
 
@@ -23,8 +23,11 @@ export function AuthContextProvider({ children }) {
     localStorage.clear(LS_USER);
   }
 
+  const isAdmin = user?.role === "admin";
+
   const value = {
     user,
+    isAdmin,
     login,
     logout
   }

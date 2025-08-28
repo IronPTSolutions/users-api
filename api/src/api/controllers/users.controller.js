@@ -37,7 +37,7 @@ module.exports.create = async (req, res, next) => {
       password: req.body.password,
       bio: req.body.bio,
       birthDate: req.body.birthDate,
-      avatar: req.file.path,
+      avatar: req.file?.path,
     });
     res.status(201).json(user);
   }
