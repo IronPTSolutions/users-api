@@ -6,7 +6,8 @@ const {
   findUserById,
   session: { loadSessionUser, session },
   secure: { isAuthenticated, isAdmin },
-  cors
+  cors,
+  errors
 } = require("./middlewares");
 
 const users = require("./controllers/users.controller");
@@ -39,5 +40,8 @@ router.get("/users/me/addresses", isAuthenticated, addresses.list);
 router.get("/users/me/addresses/:id", isAuthenticated, addresses.detail);
 router.patch("/users/me/addresses/:id", isAuthenticated, addresses.update);
 router.delete("/users/me/addresses/:id", isAuthenticated, addresses.delete);
+
+router.use(errors.routeNotFound);
+router.use(errors.globalErrorHandler);
 
 module.exports = router;

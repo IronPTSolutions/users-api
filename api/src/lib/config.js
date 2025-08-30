@@ -13,7 +13,7 @@ convict.addFormats(externalFormats);
 convict.addFormat({
   name: "mongodb-uri",
   validate: function (uri) {
-    if (!validator.isURL(uri, { protocols: "mongodb" })) {
+    if (!validator.isURL(uri, { protocols: ["mongodb", "mongodb+srv"] })) {
       throw new Error("Invalid mongodb uri");
     }
   },

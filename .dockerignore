@@ -1,0 +1,11 @@
+api/node_modules
+api/docs
+api/.env.test
+api/.env
+api/.env.template
+api/jest.config.js
+
+web/node_modules
+web/dist
+web/.env
+web/.env.template

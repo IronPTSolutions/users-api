@@ -2,6 +2,7 @@ const createError = require("http-errors");
 const session = require("./session");
 const secure = require("./secure");
 const cors = require("./cors");
+const errors = require("./errors");
 const User = require("../../lib/models/user.model");
 
 const UserNotFound = createError(404, "User not found");
@@ -21,3 +22,4 @@ module.exports.findUserById = (pathParameter = "id") => {
 module.exports.session = session;
 module.exports.secure = secure;
 module.exports.cors = cors;
+module.exports.errors = errors;
